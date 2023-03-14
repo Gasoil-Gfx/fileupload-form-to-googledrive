@@ -19,11 +19,11 @@ body{
 }
 
 form{
-    margin: 3rem auto auto;
+    margin: 7% auto auto;
     padding: 3rem 2rem;
     width: 50%;
     border-radius: 1rem;
-    background: linear-gradient(90deg, rgba(121,121,121,1) 0%, rgba(140,144,153,1) 100%);  
+    background: linear-gradient(90deg, rgba(121,121,121,1), rgba(140,144,153,1));  
 }
 
 
