@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+html{
+    background: url(/assets/img/pexels-daniel-absi-952670.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+body{
+    background: transparent;
+}
+
+.form-label{
+    margin: .5rem auto .2rem auto;
+    color: white;
+}
+
+form{
+    margin: 3rem auto auto;
+    padding: 3rem 2rem;
+    width: 50%;
+    border-radius: 1rem;
+    background: linear-gradient(90deg, rgba(121,121,121,1) 0%, rgba(140,144,153,1) 100%);  
+}
+
+
+.btn{
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    padding: .5rem 5rem;
+    background: rgb(82, 82, 82);
+    transition: all 250ms ease;
+}
+
+.btn:hover,.btn:active,.btn:focus,.btn:focus-visible,.btn:focus-within,.btn:visited,.btn:target{
+    color: white;
+    background: rgb(51, 51, 51);
+}
+
+button.btn{
+    display: flex;
+    margin: 2rem auto 0;
+}
+
+@media screen and (max-width: 1000px) {
+
+    form{
+        width:80%;
+    }
+
+    .btn{
+        padding: .5rem 2rem;
+    }
+}
