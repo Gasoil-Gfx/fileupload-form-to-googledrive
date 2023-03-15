@@ -12,6 +12,10 @@
 <body class="container">
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <div>
+            <label class="form-label mb-2" for="firstName">Your first name:</label>
+            <input class="form-control" type="text" name="firstName" required>
+            <label class="form-label mb-2" for="lastName">Your last name:</label>
+            <input class="form-control" type="text" name="lastName" required>
             <label class="form-label mb-2" for="proposal">Upload your proposal:</label>
             <input class="form-control" type="file" name="proposal" required>
             <label class="form-label mb-2" for="presentation">Upload your presentation:</label>
