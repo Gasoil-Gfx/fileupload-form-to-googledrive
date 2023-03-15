@@ -15,7 +15,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, `form.html`));
 });
 
-app.post('/upload', upload.single('presentation'), async (req, res) => {
+app.post('/upload', upload.fields([
+  { name: 'proposal', maxCount: 1 },
+  { name: 'presentation', maxCount: 1 },
+]), async (req, res) => {
   try {
     const auth = new google.auth.GoogleAuth({
       keyFile: './googlekey.json',
@@ -23,26 +26,31 @@ app.post('/upload', upload.single('presentation'), async (req, res) => {
     });
 
     const driveService = google.drive({ version: 'v3', auth });
+    const { Readable } = require('stream');
+    const files = Object.values(req.files);
+    const fileIds = [];
 
-    const media = {
-      mimeType: req.file.mimetype,
-      body: req.file.stream,
-    };
+    for (let file of files) {
+      const media = {
+        mimeType: file[0].mimetype,
+        body: Readable.from(file[0].buffer),
+      };
+      const fileMetaData = {
+        name: file[0].originalname,
+        parents: [GOOGLE_API_FOLDER_ID],
+      };
+      const response = await driveService.files.create({
+        resource: fileMetaData,
+        media: media,
+        fields: 'id',
+      });
+      fileIds.push(response.data.id);
+    }
 
-    const fileMetaData = {
-      name: req.file.originalname,
-      parents: [GOOGLE_API_FOLDER_ID],
-    };
-
-    const response = await driveService.files.create({
-      resource: fileMetaData,
-      media: media,
-      fields: 'id',
-    });
-
-    res.send('File uploaded successfully');
+    const links = fileIds.map((id, index) => `<a href="https://drive.google.com/file/d/${id}" target="_blank">File ${index + 1}</a>`);
+    res.send(`Files uploaded successfully: ${links.join(', ')}`);
   } catch (err) {
-    console.log('Upload file error', err);
+    console.error('Upload file error', err);
     res.status(500).send('Error uploading file');
   }
 });
